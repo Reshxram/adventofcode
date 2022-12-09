@@ -57,32 +57,43 @@ def scenic_highscore(trees):
             score = [0, 0, 0, 0]
             print("-------------------------------------")
             print("Checking: ", [x, y])
-            for i in range(len(trees) - x):
-                for j in range(len(trees) - y):
-                    if trees[x, y] > trees[i, j]:  # -> right
-                        print("H: ", trees[x, y], " at: ", [x, y], " Score:", score)
-                        score[0] += 1
-                    else:
-                        score[0] += 1
-                        continue
-                    if trees[x, y] > trees[i, len(trees[0]) - j - 1]:  # -> left
-                        score[1] += 1
-                    else:
-                        score[1] += 1
-                        continue
-                    if trees[x, y] > trees[j, i]:  # -> bottom
-                        score[2] += 1
-                    else:
-                        score[2] += 1
-                        continue
-                    if trees[x, y] > trees[j, len(trees[0]) - i - 1]:  # -> top
-                        score[3] += 1
-                    else:
-                        score[3] += 1
-                        continue
+            i, j = x, y
+            while i > 0:
+                if i == x:
+                    i -= 1
+                    continue
+                if trees[i, j] >= trees[x, y]:
+                    break
+                score[0] += 1
+                i -= 1
+            while i < len(trees[0]):
+                if i == x:
+                    i += 1
+                    continue
+                if trees[i, j] >= trees[x, y]:
+                    break
+                score[1] += 1
+                i += 1
+            while j > 0:
+                if i == x:
+                    i -= 1
+                    continue
+                if trees[i, j] >= trees[x, y]:
+                    break
+                score[2] += 1
+                i -= 1
+            while j < len(trees[0]):
+                if i == x:
+                    i += 1
+                    continue
+                if trees[i, j] >= trees[x, y]:
+                    break
+                score[3] += 1
+                i += 1
 
-
+            print("Score: ", score)
             product = np.prod(score)
+            print("Prod: ", product)
             if product > highscore:
                 highscore = product
 
