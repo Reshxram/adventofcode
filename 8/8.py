@@ -1,7 +1,7 @@
 import numpy as np
 
 
-with open("test.txt") as f:
+with open("input.txt") as f:
     ls = [x.strip() for x in f.readlines()]
 
 
@@ -53,47 +53,50 @@ def scenic_highscore(trees):
     highscore = 0
 
     for x in range(len(trees)):
-        for y in range(len(trees[0])):
+        for y in range(len(trees)):
             score = [0, 0, 0, 0]
-            print("-------------------------------------")
-            print("Checking: ", [x, y])
             i, j = x, y
-            while i > 0:
+            while i >= 0:  # -> top
                 if i == x:
                     i -= 1
                     continue
                 if trees[i, j] >= trees[x, y]:
+                    score[0] += 1
                     break
                 score[0] += 1
                 i -= 1
-            while i < len(trees[0]):
+            i, j = x, y
+            while i < len(trees[0]):  # -> bottom
                 if i == x:
                     i += 1
                     continue
                 if trees[i, j] >= trees[x, y]:
+                    score[1] += 1
                     break
                 score[1] += 1
                 i += 1
-            while j > 0:
-                if i == x:
-                    i -= 1
+            i, j = x, y
+            while j >= 0:  # -> left
+                if j == y:
+                    j -= 1
                     continue
                 if trees[i, j] >= trees[x, y]:
+                    score[2] += 1
                     break
                 score[2] += 1
-                i -= 1
-            while j < len(trees[0]):
-                if i == x:
-                    i += 1
+                j -= 1
+            i, j = x, y
+            while j < len(trees[0]):  # -> right
+                if j == y:
+                    j += 1
                     continue
                 if trees[i, j] >= trees[x, y]:
+                    score[3] += 1
                     break
                 score[3] += 1
-                i += 1
+                j += 1
 
-            print("Score: ", score)
             product = np.prod(score)
-            print("Prod: ", product)
             if product > highscore:
                 highscore = product
 
