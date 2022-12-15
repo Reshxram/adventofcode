@@ -11,16 +11,11 @@ def signal_strengths():
             tick += 1
             if (tick + 20) % 40 == 0:
                 signals += tick * signal
-                print("Tick:", tick, "Signal:", signal, "Tick * Signal:", tick * signal)
         elif l[:4] == "addx":
-            tick += 1
-            if (tick + 20) % 40 == 0:
-                signals += tick * signal
-                print("Tick:", tick, "Signal:", signal, "Tick * Signal:", tick * signal)
-            tick += 1
-            if (tick + 20) % 40 == 0:
-                signals += tick * signal
-                print("Tick:", tick, "Signal:", signal, "Tick * Signal:", tick * signal)
+            for x in range(2):
+                tick += 1
+                if (tick + 20) % 40 == 0:
+                    signals += tick * signal
             signal += int(l[5:])
     return signals
 
